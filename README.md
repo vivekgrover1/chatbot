@@ -13,7 +13,7 @@ Chatbot to troubleshoot a server in chatops way using slack and python.
 
 *	Slack API testing token
 
-## Install python and required packages for centos/redhat:
+## Install python3 and required packages for centos/redhat:
 
 ```
 sudo yum -y install https://centos7.iuscommunity.org/ius-release.rpm
@@ -30,7 +30,8 @@ sudo pip install fabric3
 
 ## Export Variables:
 
-*	export SLACK_BOT_TOKEN="xxx-xxxx-xxx"
+```
+export SLACK_BOT_TOKEN="xxx-xxxx-xxx"
 
-*	export CHATBOT_NAME="xyz"
-
+export CHATBOT_NAME="xyz"
+```
