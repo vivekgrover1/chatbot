@@ -15,9 +15,12 @@ Chatbot to troubleshoot a server in chatops way using slack and python.
 
 ## Install python packages:
 
-*	Pip install slackclient
+```
+Pip install slackclient
 
-*	Pip install fabric3
+Pip install fabric3
+
+```
 
 ## Export Variables:
 
