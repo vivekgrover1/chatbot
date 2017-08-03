@@ -28,10 +28,14 @@ sudo pip install fabric3
 
 ```
 
-## Export Variables:
+## Export Variables and download files:
 
 ```
 export SLACK_BOT_TOKEN="xxx-xxxx-xxx"
 
 export CHATBOT_NAME="xyz"
+
+export EC2_KEY_PATH=/path/to/key
+
+
 ```
