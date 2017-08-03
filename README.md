@@ -5,13 +5,13 @@ Chatbot to troubleshoot a server in chatops way using slack and python.
 
 *	Python 3 
 
-*	pip to handle Python application dependencies.
+*	[pip](https://pip.pypa.io/en/stable/) to handle Python application dependencies.
 
-*	Free Slack account with a team on which you have API access 
+*	[Free Slack account](https://slack.com/) with a team on which you have API access 
 
-*	Official Python slackclient code library built by the Slack team and fabric3 library to execute the command on remote machine.
+*	Official Python [slackclient](https://github.com/slackhq/python-slackclient) code library built by the Slack team and fabric3 library to execute the command on remote machine.
 
-*	Slack API testing token
+*	Slack API testing [token](https://api.slack.com/tokens)
 
 ## Install python3 and required packages for centos/redhat:
 
