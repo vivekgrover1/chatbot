@@ -37,5 +37,8 @@ export CHATBOT_NAME="xyz"
 
 export EC2_KEY_PATH=/path/to/key
 
+wget https://raw.githubusercontent.com/vivekgrover1/chatbot/master/slack_cmd_process.py
+
+wget https://raw.githubusercontent.com/vivekgrover1/chatbot/master/slackbot.py
 
 ```
