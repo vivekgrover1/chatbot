@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from fabric.api import *
 from fabric.tasks import execute
+import os
 
 help="""Use below commands to get the system information.\n\ncommand apache status host <hostname> - to get the apache status.\n
 command free host <hostname> - to get the amount of used and free memory in the system.\n
@@ -10,10 +11,14 @@ command list cpu host <hostname> - to get the information about CPU architecture
 
 
 def cmd_process(command):
+    """
+      Decide the command which is to be run based on user message directed
+      at bot.
+    """
     lis=command.split(" ")
    # print lis
     if lis[0].startswith("hi"):
-        return "I am doing good","good"
+        return "I am doing good, How about you?","good"
     if lis[0]=="help" and len(lis)==1:
         return help, "good"
     if lis[0]=="command" and len(lis)>=3:
@@ -33,6 +38,11 @@ def cmd_process(command):
     return "Not sure what you mean, please use help.","danger"
 
 def cmd_exec(command,host,keyword):
+    """
+      execute the command on the provided host in the message and return message
+      based of successfull or unsuccessful cmd execution.
+
+    """
     try:
         status = execute(remote_exec, 'ec2-user','%s' %command,hosts=["%s" %host])
         #print status["%s" %host][0]
@@ -42,10 +52,15 @@ def cmd_exec(command,host,keyword):
         return "Coundn't Connect the host, please check the host name or try again.","danger"
 
 def remote_exec(user,cmd):
+    """
+      execute the actual command on the remote aws machine using fabric maodule and return the output
+      of the command and status of the cmd execution success or failed.
+    """
 
-  with hide('output'):
+    with hide('output'):
          env.user=user
-         env.key_filename = 'ssh_pair.pem'
+         env.key_filename = os.environ.get('EC2_KEY_PATH')
          env.warn_only='True'
          result= run(cmd)
          return result, result.failed
+
