@@ -6,6 +6,11 @@ import slack_cmd_process
 import threading
 
 def get_bot_id(BOT_NAME,slack_client):
+    """
+        This function gets the id of bot based on its name in slack team.
+        We need the id because it allows us to parse the message directed at bot.
+
+    """
     api_call = slack_client.api_call("users.list")
     if api_call.get('ok'):
        users = api_call.get('members')
@@ -17,9 +22,9 @@ def get_bot_id(BOT_NAME,slack_client):
 
 def handle_command(command, channel,msg_id,user_id):
     """
-        Receives commands directed at the bot and determines if they
-        are valid commands. If so, then acts on the commands. If not,
-        returns back what it needs for clarification.
+        Receives commands directed at the bot and sends to function cmd_process
+        to process the command , which returns the response. Based on response it post the
+        message to slack thread or message.
     """
 
     response,color=slack_cmd_process.cmd_process(command)
@@ -35,8 +40,8 @@ def handle_command(command, channel,msg_id,user_id):
 def parse_slack_output(slack_rtm_output):
     """
         The Slack Real Time Messaging API is an events firehose.
-        this parsing function returns None unless a message is
-        directed at the Bot, based on its ID.
+        this parsing function parse the message directed at bot based on its id
+        and return None otherwise.
     """
     output_list = slack_rtm_output
     if output_list and len(output_list) > 0:
@@ -52,7 +57,11 @@ def parse_slack_output(slack_rtm_output):
     return None, None, None, None
 
 def process_slack_output(cmd,chn,msg,usr):
-    threads = []
+    """
+        Message directed at bot is created into thread , to speed up the
+        processing of the message.
+    """
+
     t = threading.Thread(target=handle_command, args=(cmd,chn,msg,usr,))
     threads.append(t)
     t.start()
@@ -66,7 +75,7 @@ if __name__ == "__main__":
       AT_BOT = "<@" + BOT_ID + ">"
       threads = []
 
-      READ_WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
+      WEBSOCKET_DELAY = 1 # 1 second delay between reading from firehose
       if slack_client.rtm_connect():
         print("StarterBot connected and running!")
         while True:
@@ -74,7 +83,7 @@ if __name__ == "__main__":
            command, channel, msg_id,user_id = parse_slack_output(sc)
            if command and channel and msg_id and user_id:
               process_slack_output(command,channel,msg_id,user_id)
-           time.sleep(READ_WEBSOCKET_DELAY)
+           time.sleep(WEBSOCKET_DELAY)
       else:
          print("Connection failed. Invalid Slack token or bot ID?")
 
