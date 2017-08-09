@@ -42,3 +42,10 @@ wget https://raw.githubusercontent.com/vivekgrover1/chatbot/master/slack_cmd_pro
 wget https://raw.githubusercontent.com/vivekgrover1/chatbot/master/slackbot.py
 
 ```
+
+## Getting Started
+
+```
+python3.6 slackbot.py
+
+```
