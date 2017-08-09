@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from fabric.api import *
 from fabric.tasks import execute
 import os
@@ -33,7 +32,9 @@ def cmd_process(command):
         if lis[1]=="list" and lis[2]=="cpu" and lis[3]=="host":
             return cmd_exec("lscpu",lis[4],"lscpu")
         if lis[1]=="search" and lis[3]=="host":
-            return cmd_exec("sudo grep %s /var/log/messages | head " %lis[2],lis[4],"search log")
+            return cmd_exec("sudo grep %s /var/log/messages | head " %lis[2],lis[4],"search_log")
+        if lis[1]=="process" and lis[3]=="host":
+            return cmd_exec("sudo ps -ef | grep %s " %lis[2],lis[4],"search_process")
 
     return "Not sure what you mean, please use help.","danger"
 
